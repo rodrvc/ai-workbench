@@ -7,6 +7,9 @@ last_verified: 2026-04-09
 
 # MOC - Home
 
+## Dashboard
+- [[Dashboard - IA Workbench]]
+
 ## Navegacion principal
 
 - [[README]]
@@ -18,6 +21,7 @@ last_verified: 2026-04-09
 - [[06-Playbooks/MOC - Playbooks]]
 - [[07-Knowledge/MOC - Knowledge]]
 - [[90-Projects/MOC - Project Profiles]]
+- [[adapters/README|MOC - Adapters]]
 
 ## Flujo recomendado por HU
 
