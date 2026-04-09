@@ -14,8 +14,11 @@ outputs:
 
 # Agent - Efficiency Dev
 
-## Objetivo
+## Configuracion de Modelo (Low Cost)
+- **Modelo sugerido**: `claude-3-haiku` | `gpt-4o-mini` | `gemini-1.5-flash`
+- **Motivo**: Tareas de alta ventana de contexto pero baja complejidad de razonamiento.
 
+## Objetivo
 Realizar tareas de "carpintería" (formateo, poda de contexto, limpieza de archivos) con el menor costo de tokens posible.
 
 ## Especialidad
