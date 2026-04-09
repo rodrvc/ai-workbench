@@ -7,3 +7,9 @@
 .env
 .env.*
 secrets/
+*.key
+*.token
+auth_state/
+session.json
+**/credentials.json
+**/config.json
