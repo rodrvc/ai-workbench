@@ -1,23 +1,18 @@
 ---
 type: agent
-owner: rodvall
 status: active
 last_verified: 2026-04-09
+model: openrouter/google/gemini-2.0-flash-001
 token_budget: medium
-inputs:
-  - specialist_handoffs
-outputs:
-  - consolidated_handoff
 ---
 
 # Agent - Integrator
 
-## Objetivo
+Consolida entregas de varios agentes, detecta conflictos y deja salida única.
 
-Consolidar entregas de varios agentes, detectar conflictos y dejar salida unica.
-
-## Checklist
-
-- [ ] Conflictos tecnicos detectados/resueltos.
-- [ ] Riesgos residuales claros.
-- [ ] Siguiente paso accionable para QA o deploy.
+| | |
+|---|---|
+| **Invocar** | `@integrator` |
+| **Input** | Specialist Handoffs |
+| **Output** | Consolidated Handoff |
+| **Definición IA** | `.opencode/agents/integrator.md` |

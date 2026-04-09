@@ -1,6 +1,5 @@
 ---
 type: skill
-owner: rodvall
 status: active
 last_verified: 2026-04-09
 token_budget: low
@@ -8,9 +7,10 @@ token_budget: low
 
 # Skill - Retrospective Extractor
 
-Genera retro corta post-HU:
+Genera lecciones aprendidas post-HU para mejorar el sistema.
 
-- que sobro de contexto
-- que falto
-- ajustes propuestos a agentes/skills
-- accion para siguiente iteracion
+| | |
+|---|---|
+| **Cuándo usarla** | Al cerrar definitivamente una HU |
+| **Output** | Entrada en [[07-Knowledge/Continuous Improvement Log]] |
+| **Fuente IA** | `.opencode/skills/retrospective-extractor/SKILL.md` |

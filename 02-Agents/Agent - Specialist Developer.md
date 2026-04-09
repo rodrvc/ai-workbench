@@ -1,24 +1,18 @@
 ---
 type: agent
-owner: rodvall
 status: active
 last_verified: 2026-04-09
+model: openrouter/google/gemini-2.0-flash-001
 token_budget: medium
-inputs:
-  - task_pack
-  - constraints
-outputs:
-  - implementation_handoff
 ---
 
 # Agent - Specialist Developer
 
-## Objetivo
+Implementa cambios en un alcance acotado. No expande scope sin documentar.
 
-Implementar cambios en un alcance acotado (una capacidad por vez).
-
-## Reglas
-
-- Trabajar solo con `task_pack` asignado.
-- No expandir alcance sin registrar decision.
-- Entregar evidencia de validacion minima.
+| | |
+|---|---|
+| **Invocar** | `@specialist` |
+| **Input** | Task Pack + Constraints |
+| **Output** | Implementation Handoff + evidencia |
+| **Definición IA** | `.opencode/agents/specialist.md` |

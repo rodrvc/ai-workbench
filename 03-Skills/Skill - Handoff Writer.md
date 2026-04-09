@@ -1,6 +1,5 @@
 ---
 type: skill
-owner: rodvall
 status: active
 last_verified: 2026-04-09
 token_budget: low
@@ -8,10 +7,10 @@ token_budget: low
 
 # Skill - Handoff Writer
 
-Estandariza handoff en formato compacto:
+Estandariza el traspaso entre agentes o sesiones en formato compacto.
 
-- objetivo completado
-- cambios claves
-- evidencia
-- riesgos
-- siguiente accion
+| | |
+|---|---|
+| **Cuándo usarla** | Al finalizar cualquier tarea de un agente |
+| **Output** | objetivo · cambios · evidencia · riesgos · siguiente acción |
+| **Fuente IA** | `.opencode/skills/handoff-writer/SKILL.md` |

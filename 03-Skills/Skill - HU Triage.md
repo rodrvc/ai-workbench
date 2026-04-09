@@ -1,6 +1,5 @@
 ---
 type: skill
-owner: rodvall
 status: active
 last_verified: 2026-04-09
 token_budget: low
@@ -8,9 +7,10 @@ token_budget: low
 
 # Skill - HU Triage
 
-Convierte una HU en una clasificacion operativa:
+Convierte una HU en clasificación operativa (tipo, alcance, riesgo, ruta de agentes).
 
-- tipo: bug | enhancement | feature
-- alcance: single-service | multi-service
-- riesgo: low | medium | high
-- ruta sugerida de agentes
+| | |
+|---|---|
+| **Cuándo usarla** | Al inicio de cada tarea nueva |
+| **Output** | tipo · alcance · riesgo · agentes sugeridos |
+| **Fuente IA** | `.opencode/skills/hu-triage/SKILL.md` |

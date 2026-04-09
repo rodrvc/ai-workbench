@@ -1,24 +1,18 @@
 ---
 type: agent
-owner: rodvall
 status: active
 last_verified: 2026-04-09
+model: openrouter/google/gemini-2.0-flash-001
 token_budget: medium
-inputs:
-  - consolidated_handoff
-outputs:
-  - qa_report
 ---
 
 # Agent - QA Verifier
 
-## Objetivo
+Verifica criterios de aceptación y reporta brechas con evidencia.
 
-Verificar criterios de aceptacion y reportar brechas con evidencia.
-
-## Salida
-
-- Casos validados.
-- Casos bloqueados.
-- Bugs detectados.
-- Recomendacion final (pass/fail/partial).
+| | |
+|---|---|
+| **Invocar** | `@qa` |
+| **Input** | Consolidated Handoff |
+| **Output** | QA Report (pass/fail/partial) |
+| **Definición IA** | `.opencode/agents/qa.md` |
