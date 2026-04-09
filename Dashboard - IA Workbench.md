@@ -18,12 +18,13 @@ SORT last_verified ASC
 ```
 
 ### Tabla Estática (Manual)
-| Agente | Status | Last Verified | Budget |
-|---|---|---|---|
-| [[02-Agents/Agent - Router\|Router]] | active | 2026-04-09 | low |
-| [[02-Agents/Agent - Specialist Developer\|Specialist Dev]] | active | 2026-04-09 | medium |
-| [[02-Agents/Agent - Integrator\|Integrator]] | active | 2026-04-09 | medium |
-| [[02-Agents/Agent - QA Verifier\|QA Verifier]] | active | 2026-04-09 | medium |
+| Agente | Handle | Status | Last Verified | Budget |
+|---|---|---|---|---|
+| [[02-Agents/Agent - Router\|Router]] | `@router` | active | 2026-04-09 | low |
+| [[02-Agents/Agent - Specialist Developer\|Specialist Dev]] | `@specialist` | active | 2026-04-09 | medium |
+| [[02-Agents/Agent - Efficiency Dev\|Efficiency Dev]] | `@efficiency` | active | 2026-04-09 | low |
+| [[02-Agents/Agent - Integrator\|Integrator]] | `@integrator` | active | 2026-04-09 | medium |
+| [[02-Agents/Agent - QA Verifier\|QA Verifier]] | `@qa` | active | 2026-04-09 | medium |
 
 ---
 
@@ -37,11 +38,12 @@ SORT last_verified ASC
 ```
 
 ### Tabla Estática (Manual)
-| Skill | Status | Last Verified | Budget |
-|---|---|---|---|
-| [[03-Skills/Skill - HU Triage\|HU Triage]] | active | 2026-04-09 | low |
-| [[03-Skills/Skill - Handoff Writer\|Handoff Writer]] | active | 2026-04-09 | low |
-| [[03-Skills/Skill - Retrospective Extractor\|Retro Extractor]] | active | 2026-04-09 | low |
+| Skill | Handle | Status | Last Verified | Budget |
+|---|---|---|---|---|
+| [[03-Skills/Skill - HU Triage\|HU Triage]] | `hu-triage` | active | 2026-04-09 | low |
+| [[03-Skills/Skill - Handoff Writer\|Handoff Writer]] | `handoff-writer` | active | 2026-04-09 | low |
+| [[03-Skills/Skill - Context Pruner\|Context Pruner]] | `context-pruner` | active | 2026-04-09 | low |
+| [[03-Skills/Skill - Retrospective Extractor\|Retro Extractor]] | `retrospective-extractor` | active | 2026-04-09 | low |
 
 ---
 
