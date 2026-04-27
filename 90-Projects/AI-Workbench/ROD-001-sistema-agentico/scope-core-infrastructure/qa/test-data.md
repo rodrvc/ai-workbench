@@ -1,0 +1,7 @@
+- **Setup:**
+  - Vault Obsidian con carpeta `05-Templates/`.
+  - Templates objetivo cargados:
+    - `05-Templates/HU-Scope-Template.md`
+    - `05-Templates/Project-Profile-Template.md`
+- **Rollback:**
+  - `[FALTA DATA]` Procedimiento documentado para revertir templates o restaurar versiones previas.

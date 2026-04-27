@@ -1,0 +1,7 @@
+- **Setup de entrada:**
+  - Texto dummy con:
+    - narrativa de decisiones,
+    - al menos un bloque SQL/JSON/cURL,
+    - una brecha de informacion para validar `[FALTA DATA]`.
+- **Rollback:**
+  - `[FALTA DATA]` Procedimiento para limpiar/revertir documentos generados por una corrida de prueba.

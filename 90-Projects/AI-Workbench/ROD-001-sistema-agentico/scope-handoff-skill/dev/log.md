@@ -1,0 +1,14 @@
+- **Objetivo Tecnico del Scope:** Fortalecer reglas de `handoff-writer` para generar handoffs compactos y auditables.
+- **Decisiones Tomadas:**
+  - Extraer artefactos tecnicos (SQL, cURL, JSON) fuera del log narrativo.
+  - Forzar separacion estricta Dev vs QA.
+  - Mantener estilo token-efficient: denso, en bullets, sin relleno.
+  - Marcar informacion faltante con `[FALTA DATA]`.
+- **Archivos Modificados (confirmados):**
+  - `.opencode/skills/handoff-writer/SKILL.md`
+- **Validaciones Ejecutadas (confirmadas):**
+  - QA funcional: correr skill sobre texto dummy y validar formato de salida.
+  - Criterio esperado: markdown con bullets, sin fluff conversacional, separacion Dev/QA.
+- **Riesgos / Deuda Tecnica:**
+  - Sin regla de lint automatica, la calidad de salida depende de disciplina del agente.
+  - No hay evidencia en log de suite automatizada para validar formato.

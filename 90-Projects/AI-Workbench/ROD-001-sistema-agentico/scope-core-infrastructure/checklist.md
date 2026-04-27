@@ -1,0 +1,5 @@
+- [x] Dev log completed (objective, decisions, files, risks, validations)
+- [x] Tech artifacts extracted (templates and verification command)
+- [x] QA scenarios defined (steps + expected outcomes)
+- [x] Test data documented (setup + rollback status)
+- [ ] Missing evidence replaced (`[FALTA DATA]` pending)

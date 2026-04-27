@@ -1,0 +1,5 @@
+- [x] Dev log completed (objective, decisions, files, risks, validations)
+- [x] Tech artifacts extracted (agent config + command)
+- [x] QA scenarios defined (bloqueo por falta de scopes + flujo completo)
+- [x] Test data documented (input + scopes esperados)
+- [ ] Rollback operativo documentado (pendiente `[FALTA DATA]`)

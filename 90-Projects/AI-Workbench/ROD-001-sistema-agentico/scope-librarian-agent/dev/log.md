@@ -1,0 +1,14 @@
+- **Objetivo Tecnico del Scope:** Implementar `@librarian` como gestor autonomo de documentacion desde logs crudos.
+- **Decisiones Tomadas:**
+  - El agente debe leer log crudo, pedir scopes al usuario y recien despues generar estructura.
+  - Se uso `gemini-2.0-flash-001` por costo/velocidad para tareas de lectura intensiva.
+  - Regla critica: no adivinar scopes, solicitar confirmacion explicita.
+- **Archivos Modificados (confirmados):**
+  - `.opencode/agents/librarian.md`
+  - `[FALTA DATA]` Confirmar si `02-Agents/Agent - Librarian.md` fue parte de este scope en esta HU.
+- **Validaciones Ejecutadas (confirmadas):**
+  - Prueba funcional: invocar `@librarian process <file>` sin scopes iniciales.
+  - Resultado esperado en log: el agente pausa y pide scopes antes de escribir.
+- **Riesgos / Deuda Tecnica:**
+  - Si el agente no bloquea ejecucion al faltar scopes, puede crear documentacion incorrecta.
+  - No hay evidencia en log de validacion automatizada para esta regla (solo QA manual).

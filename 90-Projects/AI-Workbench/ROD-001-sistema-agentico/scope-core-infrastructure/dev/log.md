@@ -1,0 +1,14 @@
+- **Objetivo Tecnico del Scope:** Definir infraestructura base del AI Workbench en Obsidian y templates para documentacion por scope.
+- **Decisiones Tomadas:**
+  - Separar trabajo por scopes logicos en vez de microservicios.
+  - Crear templates `05-Templates/HU-Scope-Template.md` y `05-Templates/Project-Profile-Template.md`.
+  - Forzar estructura espejo `dev/` + `qa/` con `checklist.md` por scope.
+- **Archivos Modificados (confirmados):**
+  - `05-Templates/HU-Scope-Template.md`
+  - `05-Templates/Project-Profile-Template.md`
+  - `[FALTA DATA]` Ruta exacta de archivos adicionales para bootstrap de estructura `ai-workbench`.
+- **Validaciones Ejecutadas (confirmadas):**
+  - QA manual: abrir vault Obsidian y verificar que templates existen y son seleccionables.
+- **Riesgos / Deuda Tecnica:**
+  - Si no se aplica el template, se pierde la simetria Dev/QA por scope.
+  - No hay evidencia en log de mecanismo automatico que impida estructuras incompletas.

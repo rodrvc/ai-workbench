@@ -1,0 +1,5 @@
+- [x] Dev log completed (objective, decisions, files, risks, validations)
+- [x] Tech artifacts extracted (rules + path of skill)
+- [x] QA scenarios defined (steps + expected outcomes)
+- [x] Test data documented (setup + rollback status)
+- [ ] Diff exacto y evidencia de ejecucion adjuntados (pendiente `[FALTA DATA]`)

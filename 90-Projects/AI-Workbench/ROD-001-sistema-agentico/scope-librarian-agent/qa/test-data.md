@@ -1,0 +1,8 @@
+- **Setup de prueba:**
+  - Input file: `/home/rodvall/Obsidian/Work/AI-Workbench/00-Inbox/ROD-001-raw-log.md`
+  - Scopes esperados:
+    - `core-infrastructure`
+    - `librarian-agent`
+    - `handoff-skill`
+- **Rollback:**
+  - `[FALTA DATA]` Procedimiento para limpiar archivos generados por una corrida fallida de `@librarian`.
