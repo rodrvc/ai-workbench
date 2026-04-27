@@ -22,7 +22,7 @@ ticket: {{HU_ID}}
 updated: {{FECHA}}
 ---
 
-# ADR-{{XXX}} · {{Titulo corto}}
+# ADR-{{XXX}} · {{TITULO_CORTO}}
 
 ## Decisión
 [Qué se decidió, en una oración clara]
