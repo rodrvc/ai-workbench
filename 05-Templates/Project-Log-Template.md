@@ -17,20 +17,21 @@ El agente lee project-context.md (sección Estado actual), no este archivo.
 ---
 type: project-log
 project: {{PROYECTO}}
+updated: {{FECHA}}
 ---
 
 # Project Log — {{PROYECTO}}
 
-## 🎯 Metas actuales
+## Metas actuales
 - [ ] {{meta_1}}
 - [ ] {{meta_2}}
 
-## ✅ Logros
+## Logros
 | Fecha | Logro |
 |-------|-------|
 | {{FECHA}} | {{descripcion}} |
 
-## 📋 Historial de scopes cerrados
+## Historial de scopes cerrados
 | HU | Scope | Resultado | Fecha |
 |----|-------|-----------|-------|
 | {{HU-ID}} | {{scope}} | COMPLETADO | {{FECHA}} |

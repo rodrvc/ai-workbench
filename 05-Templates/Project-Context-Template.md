@@ -23,22 +23,22 @@ updated: {{FECHA}}
 # Contexto — {{PROYECTO}}
 
 ## Stack técnico
-- Backend: {{stack_backend}}
-- DB: {{db}}
-- Auth: {{auth}}
-- Cloud: {{cloud}}
+- Backend: {{STACK_BACKEND}}
+- DB: {{DB}}
+- Auth: {{AUTH}}
+- Cloud: {{CLOUD}}
 
 ## Arquitectura clave
 [2-3 decisiones arquitectónicas que todo agente debe saber]
 
 ## Convenciones rápidas
-Ver `_brief/conventions.md` para lista completa.
-- Naming: {{ejemplo}}
-- Patrón principal: {{patron}}
+Ver `_brief/conventions.md` para lista completa (crear si aplica).
+- Naming: {{EJEMPLO}}
+- Patrón principal: {{PATRON}}
 
 ## Estado actual
 [Máx 8 líneas — se sobreescribe en cada cierre de scope, no acumula]
-- Sprint actual: {{sprint}}
-- HU en curso: {{HU}}
+- Sprint actual: {{SPRINT}}
+- HU en curso: {{HU_ACTUAL}}
 - Bloqueantes: ninguno
 ```

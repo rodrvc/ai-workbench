@@ -31,5 +31,5 @@ updated: {{FECHA}}
 
 ## Scopes activos
 [Listar aquí con link al scope file]
-- [[_handoffs/TMS-XXXX/scope-database]] — IN_PROGRESS
+- [[_handoffs/HU-XXXX/scope-FLUJO]] — IN_PROGRESS
 ```

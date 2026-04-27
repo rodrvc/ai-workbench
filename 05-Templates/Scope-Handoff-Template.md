@@ -15,11 +15,12 @@ El frontmatter YAML permite queries Dataview sobre scopes activos.
 
 ```markdown
 ---
-ticket: {{HU-ID}}
-scope: {{flujo}}
+ticket: {{HU_ID}}
+scope: {{FLUJO}}
 status: IN_PROGRESS
 opened: {{FECHA}}
 closed: ~
+updated: {{FECHA}}
 ---
 
 ## Objetivo
@@ -37,7 +38,7 @@ closed: ~
 
 ## Cierre
 - Fecha: ~
-- Resultado: ~ (COMPLETADO | PARCIAL | BLOQUEADO)
+- Resultado: PENDIENTE (COMPLETADO | PARCIAL | BLOQUEADO)
 - Resumen: ~
 - ADR generado: ~ (ninguno | ADR-XXX-slug)
 ```

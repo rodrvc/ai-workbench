@@ -18,8 +18,8 @@ slug = descripción corta en kebab-case
 type: adr
 id: ADR-{{XXX}}
 status: activa
-ticket: {{HU-ID}}
-date: {{FECHA}}
+ticket: {{HU_ID}}
+updated: {{FECHA}}
 ---
 
 # ADR-{{XXX}} · {{Titulo corto}}
@@ -31,8 +31,8 @@ date: {{FECHA}}
 [Razón real: constraint técnico, acuerdo de negocio, deuda técnica, etc.]
 
 ## Qué se descartó
-- {{opcion_A}} → descartado porque {{razon}}
-- {{opcion_B}} → descartado porque {{razon}}
+- {{OPCION_A}} → descartado porque {{RAZON}}
+- {{OPCION_B}} → descartado porque {{RAZON}}
 
 ## Consecuencias
 [Qué implica esta decisión para el código o el proceso]
