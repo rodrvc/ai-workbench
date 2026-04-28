@@ -10,11 +10,25 @@ Objetivo:
 
 ## Como usar
 
-1. Abre esta carpeta como Vault en Obsidian.
-2. Usa `MOC - Home.md` como punto de entrada.
-3. Crea un `project profile` por cada proyecto real en `90-Projects/`.
-4. Ejecuta playbooks desde `06-Playbooks/` para cada HU.
-5. Mide aprendizaje y ajustes en `07-Knowledge/`.
+1. Ubicación recomendada dentro de vault personal: `/home/rodvall/Obsidian/Work/AI-Workbench`.
+2. Abre esa carpeta como espacio de trabajo en Obsidian.
+3. Usa `MOC - Home.md` como punto de entrada.
+4. Crea un `project profile` por cada proyecto real en `90-Projects/`.
+5. Ejecuta playbooks desde `06-Playbooks/` para cada HU.
+6. Mide aprendizaje y ajustes en `07-Knowledge/`.
+
+### Configuracion portable (multi-PC)
+
+Este proyecto soporta rutas configurables via entorno para evitar rutas hardcodeadas.
+
+- `AI_WORKBENCH_ROOT`: ruta del workbench (recomendado `/home/rodvall/Obsidian/Work/AI-Workbench`).
+- `AI_OBSIDIAN_VAULT`: ruta del vault de Obsidian (recomendado `/home/rodvall/Obsidian`).
+
+Pasos recomendados:
+
+1. Copiar `.env.example` a `.env.local`.
+2. Ejecutar `scripts/bootstrap.sh`.
+3. Si faltan rutas, el script las pedira de forma interactiva y guardara `.env.local`.
 
 ## Estructura
 
