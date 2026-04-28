@@ -48,9 +48,9 @@ run "mkdir -p '$CLAUDE_HOOKS_DIR'"
 HOOK_SRC="$SCRIPT_DIR/hooks/obsidian-close-reminder.sh"
 HOOK_DST="$CLAUDE_HOOKS_DIR/obsidian-close-reminder.sh"
 
-# Renderizar con la ruta del vault
+# Renderizar con la ruta del vault usando placeholder explícito
 if [[ "$DRY_RUN" != "--dry-run" ]]; then
-    sed "s|OBSIDIAN_VAULT:-}|OBSIDIAN_VAULT:-$VAULT}|g" "$HOOK_SRC" > "$HOOK_DST"
+    sed "s|__VAULT_PATH__|$VAULT|g" "$HOOK_SRC" > "$HOOK_DST"
     chmod +x "$HOOK_DST"
 else
     echo "  [dry] Render $HOOK_SRC → $HOOK_DST (vault=$VAULT)"
@@ -59,6 +59,17 @@ ok "Hook instalado: $HOOK_DST"
 
 # ── 3. Parchear ~/.claude/settings.json ──────────────────────────────────────
 SETTINGS="$HOME/.claude/settings.json"
+
+# Crear settings.json mínimo si no existe (máquina nueva sin Claude Code configurado)
+if [[ ! -f "$SETTINGS" ]]; then
+    if [[ "$DRY_RUN" != "--dry-run" ]]; then
+        mkdir -p "$(dirname "$SETTINGS")"
+        echo '{}' > "$SETTINGS"
+        ok "Creado settings.json vacío en $SETTINGS"
+    else
+        echo "  [dry] Crear $SETTINGS (no existe)"
+    fi
+fi
 
 # Verificar dependencia jq
 if ! command -v jq &>/dev/null; then

@@ -8,7 +8,7 @@
 # Claude Code provee automáticamente:
 #   CLAUDE_PROJECT_DIR — directorio del proyecto activo
 
-VAULT="${OBSIDIAN_VAULT:-}"
+VAULT="${OBSIDIAN_VAULT:-__VAULT_PATH__}"
 PROJECT="${CLAUDE_PROJECT_DIR:-$PWD}"
 
 # Si no tenemos vault configurado, intentar detectarlo por el proyecto activo

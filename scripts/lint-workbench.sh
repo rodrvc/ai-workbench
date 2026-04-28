@@ -3,7 +3,15 @@
 # Detecta: scopes sin cerrar, archivos stale, tamaño de project-context, HUs huérfanas
 # Uso: bash lint-workbench.sh [--json]
 
-VAULT="/home/rodvall/Obsidian"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Cargar vault path desde ai-env.sh (portable entre máquinas)
+if [[ -f "$SCRIPT_DIR/lib/ai-env.sh" ]]; then
+    . "$SCRIPT_DIR/lib/ai-env.sh"
+    ai_env_load 2>/dev/null || true
+fi
+
+VAULT="${AI_OBSIDIAN_VAULT:-/home/rodvall/Obsidian}"
 FALABELLA="$VAULT/PARA/Areas/Falabella"
 HANDOFFS="$FALABELLA/_handoffs"
 DECISIONS="$FALABELLA/_decisions"

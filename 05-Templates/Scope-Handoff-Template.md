@@ -13,7 +13,7 @@ Flujos válidos: database, api, qa, docs, frontend
 
 **Convención de fuentes de verdad:**
 - `status` en frontmatter YAML → fuente de verdad para Dataview y Obsidian
-- bloque `<state>` → fuente de verdad para el agente (no duplicar status aquí)
+- bloque `<state version="1">` → fuente de verdad para el agente (no duplicar status aquí)
 - Markdown libre → narrativa humana, no la lee el agente directamente
 
 ---
@@ -37,7 +37,7 @@ session_count: 1
 - Archivos clave: `ruta/al/archivo`
 
 <!-- STATE: bloque machine-readable para el agente. Actualizar al cerrar cada sesión. -->
-<state>
+<state version="1">
   <next_step>Describir exactamente qué hacer al inicio de la próxima sesión</next_step>
   <dependencies>
     <scope>{{HU_ID}}/scope-otro-flujo</scope><!-- scopes de los que depende este -->

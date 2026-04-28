@@ -24,8 +24,8 @@ consultar `PARA/Areas/[proyecto]/_brief/index.md`
 
 ## Validación al abrir
 
-Antes de empezar, verificar que el scope file anterior tenga el bloque `## Cierre` completo.
-Si le falta, completarlo retroactivamente con lo que se pueda inferir, luego continuar.
+Antes de empezar, verificar que el scope file anterior tenga el bloque `<close>` con `<result>` distinto de `PENDIENTE`.
+Si le falta o dice PENDIENTE, completarlo retroactivamente con lo que se pueda inferir, luego continuar.
 
 ## Paso 1 - Brief
 
@@ -54,7 +54,7 @@ Activar con el comando `cerrar scope` o `/close`.
 
 ### Pasos automáticos (siempre):
 1. Actualizar `status` en frontmatter del scope file: `COMPLETADO | PARCIAL | BLOQUEADO`
-2. Llenar bloque `## Cierre` del scope file (fecha, resultado, resumen, ADR generado)
+2. Llenar bloque `<close>` del scope file: `<date>`, `<result>` (COMPLETADO|PARCIAL|BLOQUEADO), `<summary>`, `<adr>`
 3. Agregar fila en `PARA/Areas/[proyecto]/_handoffs/project-log.md`
 4. Sobrescribir sección `## Estado actual` en `_brief/project-context.md` (máx 8 líneas)
 
