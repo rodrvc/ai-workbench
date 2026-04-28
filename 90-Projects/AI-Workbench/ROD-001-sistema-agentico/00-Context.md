@@ -1,25 +1,32 @@
-# ROD-001: Implement Agentic Documentation System (AI Workbench)
+# ROD-001: AI-Workbench — Framework de Agentes IA
 
-- **Goal:** Reemplazar documentacion plana de `@efficiency` por handoffs estructurados y token-efficient en Obsidian.
-- **Problem:** La documentacion anterior no incluia contexto de negocio, datos de prueba ni pasos QA reproducibles.
-- **Approach:** Organizar trabajo por scopes logicos: `core-infrastructure`, `librarian-agent`, `handoff-skill`.
+- **Goal:** Sistema operativo personal para trabajo asistido por IA con persistencia de contexto entre sesiones.
+- **Problem:** Los LLMs pierden contexto entre sesiones. Los frameworks existentes (CrewAI, AutoGen) resuelven orquestación, no persistencia de conocimiento con humano en el loop.
+- **Approach:** Markdown + XML estructurado en Obsidian. Agentes, skills, handoffs, flows y patterns que se acumulan entre sesiones.
 
-## Current Status
+## Estado actual — 2026-04-28
 
-- **State:** In progress.
-- **Completed scopes:**
-  - `core-infrastructure`: estructura base y templates en Obsidian definidos.
-  - `librarian-agent`: agente creado para procesar logs crudos y pedir scopes antes de escribir.
-  - `handoff-skill`: reglas reforzadas para separacion Dev/QA y extraccion de artefactos tecnicos.
-- **Documentation refresh:** Estructura Dev/QA por scope reconstruida en esta HU con marcador `[FALTA DATA]` donde corresponde.
+### Completado
+- `scripts/install.sh` — setup portable en máquina nueva
+- `scripts/hooks/obsidian-close-reminder.sh` — Stop hook: detecta scopes sin cerrar
+- `scripts/lint-workbench.sh` — lint determinista semanal (cron lunes 9:03am)
+- `05-Templates/Scope-Handoff-Template.md` — schema XML `<state>` para machine-readable state
+- `handoff-writer` skill — Destino 3: escribe `<state>` XML al cerrar sesión
 
-## Next Agent Handoff
+### Decisiones tomadas
+- XML para state en scope files (no JSON, no YAML, no Markdown libre)
+- `status` solo en frontmatter YAML — fuente de verdad única
+- `type="external|solvable"` en blockers — guía al agente si parar o avanzar
+- `dependencies` entre scopes — captura prerequisitos explícitos
+- `date` en decisions — trazabilidad temporal
 
-- **Immediate objective:** Ejecutar validacion end-to-end del flujo completo (`raw log` -> `@librarian` -> `handoff-writer`) y registrar evidencia concreta por scope.
-- **What to update next:**
-  - Completar `qa/test-data.md` con setup/rollback real por scope.
-  - Reemplazar `[FALTA DATA]` con evidencia ejecutada (comandos/salidas/fecha).
-- **Hard constraints:**
-  - No inventar datos faltantes.
-  - Mantener espejo Dev/QA por scope.
-  - Mantener redaccion breve y profesional.
+### Pendiente
+- [ ] `_flows/` como entidades de primer nivel con backlinks a HUs
+- [ ] Pattern extractor al cierre de HU → `_brief/patterns.md`
+- [ ] Configurar remote git para este repo
+- [ ] Validación end-to-end de handoff-writer con XML
+
+## Próximo agente
+
+Leer `05-Templates/Scope-Handoff-Template.md` para entender el schema XML.
+Próxima tarea prioritaria: implementar `_flows/` — ver `PARA/Projects/AI-Workbench/index.md` en el vault.
