@@ -105,7 +105,27 @@ else
     fi
 fi
 
-# ── 4. Crontab — lint semanal (lunes 9:03am) ─────────────────────────────────
+# ── 4. Instalar skills en ~/.claude/skills/ ──────────────────────────────────
+SKILLS_SRC="$REPO_ROOT/.opencode/skills"
+SKILLS_DST="$HOME/.claude/skills"
+
+if [[ -d "$SKILLS_SRC" ]]; then
+    run "mkdir -p '$SKILLS_DST'"
+    while IFS= read -r -d '' skill_dir; do
+        SKILL_NAME=$(basename "$skill_dir")
+        SKILL_DST_DIR="$SKILLS_DST/$SKILL_NAME"
+        if [[ -d "$SKILL_DST_DIR" ]]; then
+            warn "Skill '$SKILL_NAME' ya instalado, actualizando..."
+        fi
+        run "mkdir -p '$SKILL_DST_DIR'"
+        run "cp '$skill_dir/SKILL.md' '$SKILL_DST_DIR/SKILL.md'"
+        ok "Skill instalado: $SKILL_NAME"
+    done < <(find "$SKILLS_SRC" -mindepth 1 -maxdepth 1 -type d -print0 2>/dev/null)
+else
+    warn "No se encontró directorio de skills en $SKILLS_SRC"
+fi
+
+# ── 5. Crontab — lint semanal (lunes 9:03am) ─────────────────────────────────
 LINT_SCRIPT="$SCRIPT_DIR/lint-workbench.sh"
 CRON_CMD="3 9 * * 1 bash $LINT_SCRIPT >> /tmp/workbench-lint.log 2>&1"
 
@@ -122,6 +142,7 @@ echo ""
 echo "=== Instalación completa ==="
 echo ""
 echo "  Hook reminder:   $HOOK_DST"
+echo "  Skills:          $SKILLS_DST"
 echo "  Lint semanal:    $LINT_SCRIPT (lunes 9:03am)"
 echo "  Settings:        $SETTINGS"
 echo ""
