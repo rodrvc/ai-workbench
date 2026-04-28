@@ -18,9 +18,14 @@ WARNINGS=()
 # ─────────────────────────────────────────────
 if [[ -d "$HANDOFFS" ]]; then
     while IFS= read -r -d '' file; do
-        if ! grep -q "## Cierre" "$file" 2>/dev/null; then
-            BASENAME=$(basename "$file")
-            DAYS_OLD=$(( ( $(date +%s) - $(stat -c %Y "$file") ) / 86400 ))
+        BASENAME=$(basename "$file")
+        DAYS_OLD=$(( ( $(date +%s) - $(stat -c %Y "$file") ) / 86400 ))
+
+        # Soporta formato nuevo (XML <close>) y formato legacy (## Cierre)
+        HAS_CLOSE=$(grep -c "<result>COMPLETADO\|<result>PARCIAL\|<result>BLOQUEADO\|## Cierre" "$file" 2>/dev/null || true)
+        IS_PENDING=$(grep -c "<result>PENDIENTE\|Resultado: PENDIENTE" "$file" 2>/dev/null || true)
+
+        if [[ "$HAS_CLOSE" -eq 0 ]] || [[ "$IS_PENDING" -gt 0 ]]; then
             ISSUES+=("SCOPE_OPEN: $BASENAME (sin cerrar, ${DAYS_OLD}d sin modificar)")
         fi
     done < <(find "$HANDOFFS" -name "scope-*.md" -print0 2>/dev/null)

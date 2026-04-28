@@ -32,7 +32,10 @@ FALABELLA_CHANGES=$(git -C "$VAULT" status --porcelain 2>/dev/null \
 OPEN_SCOPES=""
 if [[ -d "$HANDOFFS" ]]; then
     while IFS= read -r -d '' file; do
-        if ! grep -q "## Cierre" "$file" 2>/dev/null; then
+        # Detecta cierre en formato XML nuevo y formato Markdown legacy
+        HAS_CLOSE=$(grep -c "<result>COMPLETADO\|<result>PARCIAL\|<result>BLOQUEADO\|## Cierre" "$file" 2>/dev/null || true)
+        IS_PENDING=$(grep -c "<result>PENDIENTE\|Resultado: PENDIENTE" "$file" 2>/dev/null || true)
+        if [[ "$HAS_CLOSE" -eq 0 ]] || [[ "$IS_PENDING" -gt 0 ]]; then
             OPEN_SCOPES="$OPEN_SCOPES $(basename "$file")"
         fi
     done < <(find "$HANDOFFS" -name "scope-*.md" -print0 2>/dev/null)
