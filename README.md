@@ -1,59 +1,71 @@
-# AI Workbench
+# AI-Workbench
 
-Repositorio personal para tu sistema agentico de desarrollo, independiente del modelo (Claude, GPT, Gemini, etc.).
+No pierdas contexto entre sesiones de Claude Code.
 
-Objetivo:
-- Mantener configuracion de IA separada de cualquier codigo de negocio.
-- Trabajar con Markdown plano para compatibilidad total con Obsidian + git + CLI.
-- Ser portable entre proveedores/modelos sin reescribir todo el sistema.
-- Estandarizar agentes, skills, workflows, handoffs y mejora continua.
+## El problema
 
-## Como usar
+Abres Claude Code. No sabe dónde quedaste.
+Repites contexto. Pierdes 10 minutos antes de arrancar.
+AI-Workbench lo resuelve.
 
-1. Ubicación recomendada dentro de vault personal: `/home/rodvall/Obsidian/Work/AI-Workbench`.
-2. Abre esa carpeta como espacio de trabajo en Obsidian.
-3. Usa `MOC - Home.md` como punto de entrada.
-4. Crea un `project profile` por cada proyecto real en `90-Projects/`.
-5. Ejecuta playbooks desde `06-Playbooks/` para cada HU.
-6. Mide aprendizaje y ajustes en `07-Knowledge/`.
+## Requisitos
 
-### Configuracion portable (multi-PC)
+- [Obsidian](https://obsidian.md) — tu vault es donde vive el framework
+- [Claude Code](https://claude.ai/code) — el agente que ejecuta las sesiones
 
-Este proyecto soporta rutas configurables via entorno para evitar rutas hardcodeadas.
+## Quickstart
 
-- `AI_WORKBENCH_ROOT`: ruta del workbench (recomendado `/home/rodvall/Obsidian/Work/AI-Workbench`).
-- `AI_OBSIDIAN_VAULT`: ruta del vault de Obsidian (recomendado `/home/rodvall/Obsidian`).
+```bash
+# 1. Clona dentro de tu vault de Obsidian
+cd ~/tu-vault
+git clone https://github.com/rodrvc/ai-workbench AI-Workbench
 
-Pasos recomendados:
+# 2. Instala hooks y configura rutas
+cd AI-Workbench && ./scripts/install.sh
 
-1. Copiar `.env.example` a `.env.local`.
-2. Ejecutar `scripts/bootstrap.sh`.
-3. Si faltan rutas, el script las pedira de forma interactiva y guardara `.env.local`.
+# 3. Abre Claude Code en tu vault y escribe:
+"crea una HU para [lo que vas a hacer]"
+
+# La IA genera el scope file, trabajas, y al cerrar:
+"cerrar scope"
+
+# Próxima sesión — retoma desde donde quedó.
+```
+
+## Cómo funciona
+
+```
+sesión abre → lee scope file → trabaja
+                                   ↓
+                            "cerrar scope"
+                                   ↓
+                   handoff-writer escribe estado XML
+                                   ↓
+              próxima sesión lee estado → continúa sin perder contexto
+```
 
 ## Estructura
 
-- `00-Inbox/` captura rapida
-- `01-OS/` politicas globales (seguridad, git, DoD, token budget)
-- `02-Agents/` definicion de agentes
-- `03-Skills/` skills modulares
-- `04-Router/` reglas de enrutamiento
-- `05-Templates/` plantillas operativas
-- `06-Playbooks/` guias de ejecucion
-- `07-Knowledge/` memoria y lecciones
-- `90-Projects/` perfiles por proyecto
+```
+AI-Workbench/
+├── 01-OS/          → políticas y contrato de interoperabilidad
+├── 02-Agents/      → definiciones de agentes (Librarian, Router, Specialist...)
+├── 03-Skills/      → skills instalables en ~/.claude/skills/
+├── 04-Router/      → reglas de routing entre agentes
+├── 05-Templates/   → templates de scope, handoff y contexto
+├── 06-Playbooks/   → HU Delivery Playbook y protocolo de cierre
+├── 07-Knowledge/   → catálogo de patrones y mejora continua
+├── 90-Projects/    → estado de proyectos activos
+└── scripts/
+    ├── install.sh                       → setup en máquina nueva
+    ├── lint-workbench.sh                → lint semanal determinista
+    └── hooks/
+        ├── session-start.sh             → avisa si no hay HU activa
+        └── obsidian-close-reminder.sh   → detecta scopes sin cerrar
+```
 
-## Convenciones
+## Más
 
-- Cada nota debe tener frontmatter YAML.
-- Usar enlaces `[[Wiki Links]]` para navegacion.
-- Mantener contenido corto y operativo (resumen + enlaces profundos).
-- No guardar secretos en texto plano.
-- Diseñar prompts y contratos en lenguaje neutral de proveedor.
-
-## Modelo agnostico
-
-Este repositorio usa:
-
-- Plantillas y contratos orientados a tareas (no a features de un solo modelo).
-- Frontmatter estandar para que cualquier agente pueda interpretar documentos.
-- Ruteo por capacidades (analizar, implementar, validar, reportar), no por marca del modelo.
+- Flujo completo de una HU → `06-Playbooks/HU Delivery Playbook.md`
+- Templates de scope y handoff → `05-Templates/`
+- Configuración avanzada (PARA, Dataview, campos derivados) → `docs/obsidian-advanced.md`
