@@ -1,71 +1,71 @@
 # AI-Workbench
 
-No pierdas contexto entre sesiones de Claude Code.
+Persistent context management for Claude Code sessions.
 
-## El problema
+## The Problem
 
-Abres Claude Code. No sabe dónde quedaste.
-Repites contexto. Pierdes 10 minutos antes de arrancar.
-AI-Workbench lo resuelve.
+You open Claude Code. It doesn't know where you left off.
+You spend the first 10 minutes re-explaining context instead of working.
+AI-Workbench solves this.
 
-## Requisitos
+## Requirements
 
-- [Obsidian](https://obsidian.md) — tu vault es donde vive el framework
-- [Claude Code](https://claude.ai/code) — el agente que ejecuta las sesiones
+- [Obsidian](https://obsidian.md) — your vault is where the framework lives
+- [Claude Code](https://claude.ai/code) — the agent that runs your sessions
 
 ## Quickstart
 
 ```bash
-# 1. Clona dentro de tu vault de Obsidian
-cd ~/tu-vault
+# Clone inside your Obsidian vault
+cd ~/your-vault
 git clone https://github.com/rodrvc/ai-workbench AI-Workbench
 
-# 2. Instala hooks y configura rutas
+# Install hooks and configure paths
 cd AI-Workbench && ./scripts/install.sh
 
-# 3. Abre Claude Code en tu vault y escribe:
-"crea una HU para [lo que vas a hacer]"
+# Open Claude Code in your vault and type:
+"create a HU for [what you're about to work on]"
 
-# La IA genera el scope file, trabajas, y al cerrar:
-"cerrar scope"
+# The agent generates a scope file. Work. When done:
+"close scope"
 
-# Próxima sesión — retoma desde donde quedó.
+# Next session — the agent picks up exactly where you left off.
 ```
 
-## Cómo funciona
+## How It Works
 
 ```
-sesión abre → lee scope file → trabaja
-                                   ↓
-                            "cerrar scope"
-                                   ↓
-                   handoff-writer escribe estado XML
-                                   ↓
-              próxima sesión lee estado → continúa sin perder contexto
+session opens → reads scope file → works
+                                      ↓
+                               "close scope"
+                                      ↓
+                  handoff-writer writes XML state
+                                      ↓
+             next session reads state → continues without losing context
 ```
 
-## Estructura
+## Structure
 
 ```
 AI-Workbench/
-├── 01-OS/          → políticas y contrato de interoperabilidad
-├── 02-Agents/      → definiciones de agentes (Librarian, Router, Specialist...)
-├── 03-Skills/      → skills instalables en ~/.claude/skills/
-├── 04-Router/      → reglas de routing entre agentes
-├── 05-Templates/   → templates de scope, handoff y contexto
-├── 06-Playbooks/   → HU Delivery Playbook y protocolo de cierre
-├── 07-Knowledge/   → catálogo de patrones y mejora continua
-├── 90-Projects/    → estado de proyectos activos
+├── 01-OS/          → policies and interoperability contract
+├── 02-Agents/      → agent definitions (Librarian, Router, Specialist...)
+├── 03-Skills/      → installable skills for ~/.claude/skills/
+├── 04-Router/      → routing rules between agents
+├── 05-Templates/   → scope, handoff, and context templates
+├── 06-Playbooks/   → HU Delivery Playbook and closing protocol
+├── 07-Knowledge/   → patterns catalog and continuous improvement
+├── 90-Projects/    → active project state
 └── scripts/
-    ├── install.sh                       → setup en máquina nueva
-    ├── lint-workbench.sh                → lint semanal determinista
+    ├── install.sh                       → machine setup
+    ├── lint-workbench.sh                → deterministic weekly lint
     └── hooks/
-        ├── session-start.sh             → avisa si no hay HU activa
-        └── obsidian-close-reminder.sh   → detecta scopes sin cerrar
+        ├── session-start.sh             → warns if no active HU
+        └── obsidian-close-reminder.sh   → detects unclosed scopes
 ```
 
-## Más
+## Further Reading
 
-- Flujo completo de una HU → `06-Playbooks/HU Delivery Playbook.md`
-- Templates de scope y handoff → `05-Templates/`
-- Configuración avanzada (PARA, Dataview, campos derivados) → `docs/obsidian-advanced.md`
+- Full HU delivery flow → `06-Playbooks/HU Delivery Playbook.md`
+- Scope and handoff templates → `05-Templates/`
+- Advanced setup (PARA, Dataview, derived fields) → `docs/obsidian-advanced.md`
