@@ -1,5 +1,9 @@
 # Plantilla de HU por Scopes
 
+> **Scope workspace** — artefactos de trabajo (queries SQL, test data, narrativa).
+> El scope state (estado máquina para el agente) vive en `_handoffs/[HU-ID]/scope-[flujo].md`.
+> Ambos son complementarios, no sustitutos.
+
 Estructura base para organizar una Historia de Usuario compleja.
 
 Convencion de nombre de carpeta HU (obligatoria):

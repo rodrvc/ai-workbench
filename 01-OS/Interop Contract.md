@@ -36,3 +36,18 @@ next_action: string
 ## Regla
 
 Si un runtime no soporta una capacidad, debe devolver `status: blocked` con causa y alternativa sugerida.
+
+## Relación con Scope State
+
+El Interop Contract es el protocolo de mensaje efímero entre agentes. El scope state (`_handoffs/[HU]/scope-[flujo].md`) es su materialización persistente entre sesiones. Son complementarios, no redundantes.
+
+Mapping de campos:
+
+| Interop Contract (salida) | Scope State XML |
+|---|---|
+| `next_action` | `<next_step>` |
+| `risks` | `<blockers>` |
+| `artifacts` | `<files_modified>` |
+| `status` + `result_summary` | `<close>` (al finalizar el scope) |
+
+El handoff-writer persiste la salida del Interop Contract en el scope state al cerrar sesión. No duplicar status entre ambos.

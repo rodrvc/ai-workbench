@@ -12,8 +12,8 @@ Copiar como `PARA/[Areas|Projects]/[proyecto]/_handoffs/[HU-ID]/scope-[flujo].md
 Flujos válidos: database, api, qa, docs, frontend
 
 **Convención de fuentes de verdad:**
-- `status` en frontmatter YAML → fuente de verdad para Dataview y Obsidian
-- bloque `<state version="1">` → fuente de verdad para el agente (no duplicar status aquí)
+- `status`, `has_blockers`, `blocker_type`, `state_updated` en frontmatter YAML → consultables por Dataview
+- bloque `<state version="1">` → fuente de verdad estructurada para el agente (estructura rica, no duplicar status aquí)
 - Markdown libre → narrativa humana, no la lee el agente directamente
 
 ---
@@ -26,13 +26,17 @@ status: IN_PROGRESS
 opened: {{FECHA}}
 closed: ~
 updated: {{FECHA}}
+state_updated: {{FECHA}}
 session_count: 1
+has_blockers: false
+blocker_type: ~
 ---
 
 ## Objetivo
 [1-2 líneas: qué hay que hacer en este flujo específico]
 
 ## Contexto relevante
+- Workspace: `90-Projects/[proyecto]/[HU-ID]/scope-[flujo]/` — si existe (artefactos dev/qa)
 - [[_decisions/ADR-XXX-descripcion]] — por qué X funciona así
 - Archivos clave: `ruta/al/archivo`
 

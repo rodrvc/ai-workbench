@@ -17,18 +17,47 @@ QA y Dev son sesiones distintas → cargar contexto del otro rol es desperdicio 
 1. **No inventar** — sin dato concreto → `[FALTA DATA]`
 2. **Sin narrativa** — viñetas, eliminar relleno conversacional
 3. **Solo lo estrictamente necesario** — si no cambia el comportamiento del próximo agente, no va
-4. **Archivos separados por rol** — QA no necesita blast radius; Dev no necesita test data activa
+4. **Archivos separados por rol** — QA no necesita estado de implementación; Dev no necesita test data activa ni escenarios QA
 5. **Máx 1 pantalla por archivo** — si no cabe en una pantalla, está sobrando algo
+
+---
+
+## Paso 0 — Resolución de rutas (ANTES de escribir cualquier archivo)
+
+Todas las rutas se derivan del scope file cargado al inicio de sesión. Su ruta tiene la forma:
+
+```
+[VAULT]/PARA/[tipo]/[proyecto]/_handoffs/[HU-ID]/scope-[flujo].md
+```
+
+Extraer y verificar con Glob/Read antes de escribir:
+
+| Variable | Cómo obtenerla | Ejemplo |
+|---|---|---|
+| `VAULT` | Raíz del vault | `/home/rodvall/Obsidian` |
+| `PROYECTO_DIR` | Directorio padre de `_handoffs/` | `PARA/Areas/Falabella` |
+| `HU_ID` | Directorio dentro de `_handoffs/` | `TMS-11278` |
+| `SCOPE_FILE` | Ruta completa del scope | `PARA/Areas/Falabella/_handoffs/TMS-11278/scope-cierre.md` |
+
+Rutas para Destinos 1 y 2 — siempre dentro de `HU/`:
+
+```
+Destino 1  → [PROYECTO_DIR]/HU/[HU_ID] - <nombre>.md   (buscar con Glob)
+Destino 2b → [PROYECTO_DIR]/HU/[HU_ID]-handoff-dev.md
+Destino 2a → [PROYECTO_DIR]/HU/[HU_ID]-handoff-qa.md
+```
+
+> Si `HU/` no existe en el proyecto, crearla. Todo desarrollo está trackeado en un ticket.
 
 ---
 
 ## Destinos de escritura
 
-### Destino 1 — Archivo HU en Obsidian (punto de entrada universal)
+### Destino 1 — Archivo HU / índice de proyecto (punto de entrada universal)
 
-**Ruta**: `/home/rodvall/Obsidian/PARA/Areas/Falabella/HU/TMS-XXXXX - <nombre>.md`
+**Ruta**: `[PROYECTO_DIR]/HU/[HU_ID] - <nombre>.md` (buscar con Glob; crear si no existe)
 
-Actualizar (no append) el bloque `## Estado actual`. Si no existe, crearlo antes de `## MRs`.
+Actualizar (no append) el bloque `## Estado actual`. Si no existe, crearlo.
 
 ```markdown
 ## Estado actual
@@ -43,37 +72,38 @@ Actualizar (no append) el bloque `## Estado actual`. Si no existe, crearlo antes
 1. <acción concreta> — precondición: <qué debe estar listo>
 
 ### Continuar como:
-- 🧪 QA → `docs/hu/TMS-XXXXX-handoff-qa.md`
-- 🧑‍💻 Dev → `docs/hu/TMS-XXXXX-handoff-dev.md`
+- 🧪 QA → `[ruta handoff-qa]`
+- 🧑‍💻 Dev → `[ruta handoff-dev]`
 ```
 
 ---
 
 ### Destino 2a — Handoff QA
 
-**Ruta**: `docs/hu/TMS-XXXXX-handoff-qa.md`
+**Ruta**: `[PROYECTO_DIR]/HU/[HU_ID]-handoff-qa.md`
+
 **Cuándo escribir**: la sesión fue de QA, o hay escenarios QA pendientes.
 **Modo**: sobreescribir — siempre refleja el estado actual.
 
 ```markdown
-> Ticket: TMS-XXXXX | Sesión: YYYY-MM-DD | Entorno: UAT / local
+> Ticket: [HU_ID] | Sesión: YYYY-MM-DD | Entorno: UAT / local
 
 ## Escenarios
 | ID | Descripción | Estado |
 |----|-------------|--------|
-| E4.1 | Cierre con reemplazo | ✅ PASS |
-| E4.2 | Viajes propios + reemplazo | ⬜ pendiente |
+| E4.1 | <descripción> | ✅ PASS |
+| E4.2 | <descripción> | ⬜ pendiente |
 
 ## Pendientes — próxima sesión QA
 **E4.2**
-- Comando: `python3 docs/TMS-XXXXX-prueba.py e42`
+- Comando: `<comando exacto>`
 - Esperado: <campo>=<valor exacto>
 - Gotcha: <advertencia operacional concreta>
 
 ## Active Test Data
 | Dato | Valor | Estado |
 |------|-------|--------|
-| Fleet | 996 | activa |
+| <dato> | <valor> | activa |
 
 ## Dead Ends QA
 - <error investigado> → <causa raíz confirmada> — no repetir
@@ -83,64 +113,63 @@ Actualizar (no append) el bloque `## Estado actual`. Si no existe, crearlo antes
 
 ### Destino 2b — Handoff Dev
 
-**Ruta**: `docs/hu/TMS-XXXXX-handoff-dev.md`
+**Ruta**: `[PROYECTO_DIR]/HU/[HU_ID]-handoff-dev.md`
+
 **Cuándo escribir**: la sesión fue de desarrollo, o hay código pendiente.
 **Modo**: sobreescribir — siempre refleja el estado actual.
 
 ```markdown
-> Ticket: TMS-XXXXX | Sesión: YYYY-MM-DD
+> Ticket: [HU_ID] | Sesión: YYYY-MM-DD
 
 ## Estado de implementación
 - ✅ <qué está hecho>
 - ⬜ <qué falta>
 
-## Decisiones técnicas
-- <decisión>: <por qué, no qué>
-
-## Blast radius
-- `<archivo>`: <qué cambió y por qué>
-
-## Next Actions Dev
-1. <acción> — precondición: <qué debe estar listo>
-
-## ⚠️ Bloqueante
-<omitir sección si no hay bloqueante activo>
-
 ## Dead Ends Dev
 - <approach descartado> → <por qué no funciona>
+
+## Notas de contexto
+- Solo si hay algo que no cabe en el scope state XML pero el próximo dev necesita saber
+- Ej: bug que solo se reproduce en UAT, advertencia sobre servicio externo inestable, razón de un naming no obvia
+- Omitir sección entera si no hay nada
 ```
+
+> **Qué NO va aquí** (vive en el scope state XML):
+> `decisions`, `files_modified`, `next_step`, `blockers`, `flows_touched`.
 
 ---
 
 ### Destino 3 — Scope File (machine-readable state)
 
-**Ruta**: `/home/rodvall/Obsidian/PARA/Areas/Falabella/_handoffs/[HU-ID]/scope-[flujo].md`
+**Ruta**: `SCOPE_FILE` — el scope cargado al inicio de sesión (ya conocido).
 **Cuándo escribir**: siempre — es el estado que el próximo agente carga primero.
-**Modo**: Edit del bloque `<state>` existente (nunca sobreescribir el archivo entero).
+**Modo**: Edit de campos específicos (nunca sobreescribir el archivo entero).
 
-Actualizar estos campos en orden:
+Actualizar en orden:
 
-**1. Frontmatter YAML** — Edit de campos específicos:
+**1. Frontmatter YAML**:
 - `updated`: fecha de hoy `YYYY-MM-DD`
+- `state_updated`: timestamp `YYYY-MM-DDTHH:MM`
 - `session_count`: incrementar en 1
-- `status`: solo cambiar si la sesión cerró el scope (`COMPLETED` / `BLOCKED`)
+- `has_blockers`: `true` / `false` según `<blockers>` activos
+- `blocker_type`: `external` / `solvable` / `~`
+- `status`: solo cambiar si la sesión cerró el scope (`COMPLETADO` / `BLOQUEADO`)
 
-**2. Bloque `<state>`** — reemplazar el contenido completo del bloque:
+**2. Bloque `<state>`** — reemplazar el contenido completo:
 
 ```xml
-<state>
+<state version="1">
   <next_step>Primera acción exacta al inicio de la próxima sesión — sin ambigüedad</next_step>
   <dependencies>
-    <scope>TMS-XXXXX/scope-flujo-del-que-depende</scope>
+    <scope>[HU_ID]/scope-flujo-del-que-depende</scope>
     <!-- vacío si no hay dependencias -->
   </dependencies>
   <flows_touched>
     <flow>nombre-del-flow-arquitectónico</flow>
-    <!-- solo flows que realmente se modificaron esta sesión -->
   </flows_touched>
   <files_modified>
     <file>ruta/relativa/al/archivo.ts</file>
-    <!-- solo archivos tocados esta sesión, no los de sesiones anteriores -->
+    <!-- solo archivos tocados esta sesión -->
   </files_modified>
   <decisions>
     <decision date="YYYY-MM-DD">
@@ -150,25 +179,25 @@ Actualizar estos campos en orden:
     <!-- acumular, no reemplazar decisiones anteriores -->
   </decisions>
   <blockers>
-    <!-- type="external": el agente DEBE parar y reportar, no puede avanzar -->
-    <!-- type="solvable": el agente puede proponer solución y continuar -->
+    <!-- type="external": el agente DEBE parar y reportar -->
+    <!-- type="solvable": el agente puede proponer solución -->
     <!-- vacío si no hay bloqueantes -->
   </blockers>
 </state>
 ```
 
-**3. Bloque `<close>`** — solo si el scope se cierra en esta sesión:
+**3. Bloque `<close>`** — solo si el scope se cierra:
 
 ```xml
 <close>
   <date>YYYY-MM-DD</date>
   <result>COMPLETADO</result><!-- COMPLETADO | PARCIAL | BLOQUEADO -->
   <summary>Qué se logró en 1-2 líneas</summary>
-  <adr>ADR-XXX-slug</adr><!-- ninguno si no se generó ADR -->
+  <adr>ADR-XXX-slug</adr><!-- ninguno si no se generó -->
 </close>
 ```
 
-**4. Sección Bitácora** — append de una entrada de sesión:
+**4. Bitácora** — append:
 
 ```markdown
 ### YYYY-MM-DD
@@ -179,9 +208,9 @@ Actualizar estos campos en orden:
 
 ## Reglas de calidad
 
-- **`next_step` es lo más importante** — si el próximo agente solo lee ese campo, debe saber exactamente qué hacer. Sin ambigüedad.
+- **`next_step` es lo más importante** — si el próximo agente solo lee ese campo, debe saber exactamente qué hacer
 - **`decisions` acumula, no reemplaza** — las decisiones de sesiones anteriores no se borran
-- **`files_modified` es de la sesión actual** — no listar archivos de sesiones previas salvo que se volvieron a tocar
+- **`files_modified` es de la sesión actual** — no listar archivos de sesiones previas
 - **Bloqueante `external`** → el agente para, reporta al usuario, no intenta workarounds
 - **Bloqueante `solvable`** → el agente puede proponer solución y seguir
 - **Nunca Write ciego** — siempre Read antes de cualquier escritura
@@ -194,14 +223,15 @@ Actualizar estos campos en orden:
 2. Leer `<state>` → ir directo a `<next_step>`
 3. Si hay `<blocker type="external">` → reportar al usuario antes de cualquier acción
 4. Si hay `<dependencies>` → verificar que esos scopes estén en estado `COMPLETADO`
-5. Leer Destino 2a o 2b según rol de la sesión
+5. Si el state file tiene `Workspace:` en "Contexto relevante" → cargar artefactos del workspace según el rol (`dev/` o `qa/`)
+6. Leer Destino 2a o 2b según rol de la sesión
 
 ---
 
 ## Flujo de ejecución (al generar handoff)
 
-1. Leer el scope file actual: `_handoffs/[HU-ID]/scope-[flujo].md`
-2. Leer el archivo HU en Obsidian
+1. **Paso 0**: Resolver rutas desde el scope file cargado (ver sección "Resolución de rutas")
+2. Leer el scope file actual (Destino 3) y el archivo HU/índice (Destino 1)
 3. Extraer de la conversación: decisiones, archivos tocados, flows afectados, bloqueantes
 4. Determinar qué destinos escribir:
    - Sesión QA → Destino 1 + Destino 2a + Destino 3

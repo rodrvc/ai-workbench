@@ -27,10 +27,21 @@ consultar `PARA/Areas/[proyecto]/_brief/index.md`
 Antes de empezar, verificar que el scope file anterior tenga el bloque `<close>` con `<result>` distinto de `PENDIENTE`.
 Si le falta o dice PENDIENTE, completarlo retroactivamente con lo que se pueda inferir, luego continuar.
 
+## Checkpoint incremental (obligatorio durante sesión)
+
+Después de cada subtarea significativa completada (commit, migración exitosa, test pasando, decisión tomada), actualizar en el scope file:
+1. `<next_step>` — qué haría el próximo agente si la sesión terminara ahora
+2. `<files_modified>` — agregar archivos tocados en esta subtarea
+3. `state_updated` en el frontmatter — timestamp de este checkpoint (`YYYY-MM-DDTHH:MM`)
+
+No esperar al Closing Protocol. Si la sesión muere, el scope refleja el último progreso real.
+
 ## Paso 1 - Brief
 
 Crear HU usando [[05-Templates/Project-Context-Template]] y [[05-Templates/Scope-Handoff-Template]].
-Ubicar scope file en: `PARA/Areas/[proyecto]/_handoffs/[HU-ID]/scope-[flujo].md`
+
+**Scope state** (siempre): `PARA/Areas/[proyecto]/_handoffs/[HU-ID]/scope-[flujo].md`
+**Scope workspace** (si hay artefactos — queries, test data, tech artifacts): `AI-Workbench/90-Projects/[proyecto]/[HU-ID]/scope-[flujo]/` usando [[05-Templates/HU-Scope-Template]].
 
 ## Paso 2 - Routing
 
@@ -54,9 +65,13 @@ Activar con el comando `cerrar scope` o `/close`.
 
 ### Pasos automáticos (siempre):
 1. Actualizar `status` en frontmatter del scope file: `COMPLETADO | PARCIAL | BLOQUEADO`
-2. Llenar bloque `<close>` del scope file: `<date>`, `<result>` (COMPLETADO|PARCIAL|BLOQUEADO), `<summary>`, `<adr>`
-3. Agregar fila en `PARA/Areas/[proyecto]/_handoffs/project-log.md`
-4. Sobrescribir sección `## Estado actual` en `_brief/project-context.md` (máx 8 líneas)
+2. Sincronizar campos derivados en frontmatter (para Dataview):
+   - `state_updated`: timestamp actual `YYYY-MM-DDTHH:MM`
+   - `has_blockers`: `true` si hay `<blocker>` activo, `false` si no
+   - `blocker_type`: `external` / `solvable` / `~` si no hay
+3. Llenar bloque `<close>` del scope file: `<date>`, `<result>` (COMPLETADO|PARCIAL|BLOQUEADO), `<summary>`, `<adr>`
+4. Agregar fila en `PARA/Areas/[proyecto]/_handoffs/project-log.md`
+5. Sobrescribir sección `## Estado actual` en `_brief/project-context.md` (máx 8 líneas)
 
 ### Pasos condicionales (proponer al usuario, esperar confirmación):
 5. Si se tomó decisión arquitectónica → crear `_decisions/ADR-XXX-SLUG.md` usando [[05-Templates/ADR-Template]]

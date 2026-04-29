@@ -21,37 +21,33 @@ if [[ -z "$VAULT" ]] || [[ "$PROJECT" != "$VAULT"* ]]; then
     exit 0
 fi
 
-FALABELLA="$VAULT/PARA/Areas/Falabella"
-HANDOFFS="$FALABELLA/_handoffs"
+# ── Auto-discovery: cualquier proyecto bajo PARA con _handoffs/ ───────────────
+PARA_CHANGES=$(git -C "$VAULT" status --porcelain 2>/dev/null \
+    | grep "PARA/" | grep -v "^??" | head -5)
 
-# ── Cambios de Falabella sin commitear ────────────────────────────────────────
-FALABELLA_CHANGES=$(git -C "$VAULT" status --porcelain 2>/dev/null \
-    | grep "Falabella" | grep -v "^??" | head -5)
-
-# ── Scopes sin sección de Cierre ─────────────────────────────────────────────
+# ── Scopes sin sección de Cierre (todos los proyectos) ───────────────────────
 OPEN_SCOPES=""
-if [[ -d "$HANDOFFS" ]]; then
+while IFS= read -r -d '' handoffs_dir; do
     while IFS= read -r -d '' file; do
-        # Detecta cierre en formato XML nuevo y formato Markdown legacy
         HAS_CLOSE=$(grep -c "<result>COMPLETADO\|<result>PARCIAL\|<result>BLOQUEADO\|## Cierre" "$file" 2>/dev/null || true)
         IS_PENDING=$(grep -c "<result>PENDIENTE\|Resultado: PENDIENTE" "$file" 2>/dev/null || true)
         if [[ "$HAS_CLOSE" -eq 0 ]] || [[ "$IS_PENDING" -gt 0 ]]; then
             OPEN_SCOPES="$OPEN_SCOPES $(basename "$file")"
         fi
-    done < <(find "$HANDOFFS" -name "scope-*.md" -print0 2>/dev/null)
-fi
+    done < <(find "$handoffs_dir" -name "scope-*.md" -print0 2>/dev/null)
+done < <(find "$VAULT/PARA" -name "_handoffs" -type d -print0 2>/dev/null)
 
 # ── Construir mensaje ─────────────────────────────────────────────────────────
-if [[ -n "$FALABELLA_CHANGES" ]] || [[ -n "$OPEN_SCOPES" ]]; then
-    MSG="Recordatorio: sesión de Falabella sin cerrar."
+if [[ -n "$PARA_CHANGES" ]] || [[ -n "$OPEN_SCOPES" ]]; then
+    MSG="Recordatorio: sesión de trabajo sin cerrar."
 
     if [[ -n "$OPEN_SCOPES" ]]; then
         MSG="$MSG Scopes abiertos:$OPEN_SCOPES."
     fi
 
-    if [[ -n "$FALABELLA_CHANGES" ]]; then
-        COUNT=$(echo "$FALABELLA_CHANGES" | wc -l | tr -d ' ')
-        MSG="$MSG ${COUNT} archivo(s) de Falabella modificado(s)."
+    if [[ -n "$PARA_CHANGES" ]]; then
+        COUNT=$(echo "$PARA_CHANGES" | wc -l | tr -d ' ')
+        MSG="$MSG ${COUNT} archivo(s) de proyecto modificado(s) sin commitear."
     fi
 
     MSG="$MSG → Ejecuta /close para cerrar el scope."
